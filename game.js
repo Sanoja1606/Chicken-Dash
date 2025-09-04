@@ -6,10 +6,10 @@ let asteroidImage = new Image();
 let coinImage = new Image();
 let backgroundImage = new Image();
 
-rocketImage.src = '/images/ship.png';
-backgroundImage.src = '/images/space.png';
-asteroidImage.src = '/images/asteroid.png';
-coinImage.src = '/images/coin.png';
+rocketImage.src = './images/ship.png';
+backgroundImage.src = './images/space.png';
+asteroidImage.src = './images/asteroid.png';
+coinImage.src = './images/coin.png';
 
 let rocketX = 350, rocketY = 500, rocketWidth = 50, rocketHeight = 80;
 let score = 0, lives = 3;
