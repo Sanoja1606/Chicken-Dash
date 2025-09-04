@@ -6,10 +6,10 @@ let asteroidImage = new Image();
 let coinImage = new Image();
 let backgroundImage = new Image();
 
-rocketImage.src = 'ship.png';
-backgroundImage.src = 'space.png';
-asteroidImage.src = 'asteroid.png';
-coinImage.src = 'coin.png';
+rocketImage.src = '/images/ship.png';
+backgroundImage.src = '/images/space.png';
+asteroidImage.src = '/images/asteroid.png';
+coinImage.src = '/images/coin.png';
 
 let rocketX = 350, rocketY = 500, rocketWidth = 50, rocketHeight = 80;
 let score = 0, lives = 3;
@@ -43,7 +43,7 @@ function drawRocket() {
 }
 
 function generateAsteroids() {
-  if (Math.random() < 0.03) {
+  if (Math.random() < 0.02) {
     const asteroidX = Math.random() * (canvas.width - asteroidWidth);
     asteroids.push({
       x: asteroidX,
@@ -56,14 +56,14 @@ function generateAsteroids() {
 }
 
 function generateCoins() {
-  if (Math.random() < 0.02) {
+  if (Math.random() < 0.03) {
     const coinX = Math.random() * (canvas.width - coinWidth);
     coins.push({
       x: coinX,
       y: -coinHeight,
       width: coinWidth,
       height: coinHeight,
-      speed: 1.5 + Math.random() * 1
+      speed: 2 + Math.random() * 1
     });
   }
 }
@@ -95,14 +95,18 @@ function updateCoins() {
 }
 
 function checkAsteroidCollisions() {
-  for (let asteroid of asteroids) {
-    if (rocketX < asteroid.x + asteroid.width &&
-        rocketX + rocketWidth > asteroid.x &&
-        rocketY < asteroid.y + asteroid.height &&
-        rocketY + rocketHeight > asteroid.y) {
+  for (let i = 0; i < asteroids.length; i++) {
+    let asteroid = asteroids[i];
+    if (
+      rocketX < asteroid.x + asteroid.width &&
+      rocketX + rocketWidth > asteroid.x &&
+      rocketY < asteroid.y + asteroid.height &&
+      rocketY + rocketHeight > asteroid.y
+    ) {
       lives--;
       rocketX = 350;
       rocketY = 500;
+      asteroids.splice(i, 1);
       if (lives <= 0) {
         alert('Game Over! Your score: ' + score);
         resetGame();
@@ -114,10 +118,12 @@ function checkAsteroidCollisions() {
 
 function checkCoinCollisions() {
   coins.forEach((coin, index) => {
-    if (rocketX < coin.x + coin.width &&
-        rocketX + rocketWidth > coin.x &&
-        rocketY < coin.y + coin.height &&
-        rocketY + rocketHeight > coin.y) {
+    if (
+      rocketX < coin.x + coin.width &&
+      rocketX + rocketWidth > coin.x &&
+      rocketY < coin.y + coin.height &&
+      rocketY + rocketHeight > coin.y
+    ) {
       score += 10;
       coins.splice(index, 1);
     }
